@@ -24,21 +24,28 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 const temp = data.main.temp;
                 const humidity = data.main.humidity;
-                const condition = data.main.condition;
+                const condition = data.weather[0].main;
+                
                 const icon = data.weather[0].icon;
 
                 WeatherResult.innerHTML = `
-                < h2 >${data.name},${data.sys.country}</h2 >
-                    <img src="https://openweathermap.org/img/wn/${icon}10d@2x.png" alt="${condition}" />
-                    <p><strong>Temperature:</strong></p>
-        })
-                `
+                <h2>${data.name},${data.sys.country}</h2>
+                    <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${condition}" />
+                    <p><strong>Temperature:</strong>${temp}</p>
+                    <p><strong>Humidity:</strong>${humidity}</p>
+                    <p><strong>Condition:</strong>${condition}</p>`;
+        
+                
+            })
+            .catch(error => {
+                WeatherResult.innerHTML = `<p>Error:${error.message}</p>`
+            })
                     
-        })
-
-
     })
 
 
-    
 });
+
+
+    
+
